@@ -15,24 +15,18 @@ runs:
     - name: 'Checkout'
       uses: actions/checkout@v2
 
-    - name: 'Checkout this repo'
-      uses: actions/checkout@v2
-      with:
-        repository: 'tsnlab/check'
-        path: '.github/check'
-
     - name: 'Basic'
-      uses: ./.github/check/actions/basic
+      uses: ./actions/basic
 
     - name: 'Python'
-      uses: ./.github/check/actions/python
+      uses: ./actions/python
       with:
         python_version: ${{ inputs.python_version }}
 
     - name: 'Rust'
-      uses: ./.github/check/actions/rust
+      uses: ./actions/rust
       with:
         rust_version: ${{ inputs.rust_version }}
 
     - name: 'C/CPP'
-      uses: ./.github/check/actions/cpp
+      uses: ./actions/cpp
