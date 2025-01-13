@@ -8,6 +8,9 @@ inputs:
   rust_version:
     description: 'Rust version'
     default: 'stable'
+  github-token:
+    description: 'GITHUB_TOKEN secret'
+    required: true
 
 runs:
   using: 'composite'
@@ -20,6 +23,8 @@ runs:
 
     - name: 'Basic'
       uses: ./.github/check/actions/basic
+      with:
+        github_token: ${{ inputs.github-token }}
 
     - name: 'Python'
       uses: ./.github/check/actions/python

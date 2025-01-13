@@ -2,6 +2,10 @@ name: 'Lint basic'
 
 on:
   workflow_call:
+    inputs:
+      github-token:
+        description: 'GitHub Token'
+        required: true
 
 jobs:
   lint-basic:
@@ -12,5 +16,5 @@ jobs:
       - name: Final newline
         uses: Logerfo/newline-action@0.0.4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ inputs.github-token }}
           config-path: .github/newline.yml
