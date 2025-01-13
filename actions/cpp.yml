@@ -1,0 +1,16 @@
+name: 'C/CPP'
+
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    if: ${{ hashFiles('*.c') != '' }} || ${{ hashFiles('Makefile') != '' }}
+    steps:
+      - name: Install clang-format
+        run: sudo apt install -qqy --no-install-recommends clang-format
+      - name: Linters
+        uses: wearerequired/lint-action@v2
+        with:
+          clang_format: true

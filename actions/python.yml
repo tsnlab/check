@@ -1,0 +1,33 @@
+name: Python
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        description: 'Python version'
+        default: '3.12'
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    if: ${{ hashFiles('pyproject.toml') != '' }}
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ github.event.inputs.python_version }}
+      - name: Install Flake8, pyright, mypy
+        run: pip install flake8 flake8-import-order flake8-builtins pyright mypy
+      - name: Install dependencies
+        run: pip install .
+      - name: flake8, mypy
+        uses: wearerequired/lint-action@v2
+        with:
+          flake8: true
+          mypy: true
+          mypy_args: --disable-error-code=import-untyped --check-untyped-defs
+      - name: Pyright
+        uses: jakebailey/pyright-action@v2
+        with:
+          warnings: true
