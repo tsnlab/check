@@ -8,7 +8,7 @@ inputs:
   rust_version:
     description: 'Rust version'
     default: 'stable'
-  github-token:
+  github_token:
     description: 'GITHUB_TOKEN secret'
     required: true
 
@@ -24,17 +24,20 @@ runs:
     - name: 'Basic'
       uses: ./.github/check/actions/basic
       with:
-        github_token: ${{ inputs.github-token }}
+        github_token: ${{ inputs.github_token }}
 
     - name: 'Python'
+      if: ${{ hashFiles('pyproject.toml') != '' }}
       uses: ./.github/check/actions/python
       with:
         python_version: ${{ inputs.python_version }}
 
     - name: 'Rust'
+      if: ${{ hashFiles('Cargo.toml') != '' }}
       uses: ./.github/check/actions/rust
       with:
         rust_version: ${{ inputs.rust_version }}
 
     - name: 'C/CPP'
+      if: ${{ hashFiles('*.c') != '' }} || ${{ hashFiles('Makefile') != '' }}
       uses: ./.github/check/actions/cpp

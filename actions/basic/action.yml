@@ -1,20 +1,18 @@
 name: 'Lint basic'
+description: 'Lint basic stuffs'
 
-on:
-  workflow_call:
-    inputs:
-      github-token:
-        description: 'GitHub Token'
-        required: true
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN secret'
+    required: true
 
-jobs:
-  lint-basic:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Shellcheck
-        uses: ludeeus/action-shellcheck@master
-      - name: Final newline
-        uses: Logerfo/newline-action@0.0.4
-        with:
-          github-token: ${{ inputs.github-token }}
-          config-path: .github/newline.yml
+runs:
+  using: composite
+  steps:
+    - name: Shellcheck
+      uses: ludeeus/action-shellcheck@master
+    - name: Final newline
+      uses: Logerfo/newline-action@0.0.4
+      with:
+        github-token: ${{ inputs.github_token }}
+        config-path: .github/check/newline.yml

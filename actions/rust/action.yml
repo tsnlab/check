@@ -1,30 +1,27 @@
 name: Rust
 
-on:
-  workflow_call:
-    rust_version:
-      description: 'Rust version'
-      default: 'stable'
+inputs:
+  rust_version:
+    description: 'Rust version'
+    default: 'stable'
 
-jobs:
-  lint-and-build:
-    runs-on: ubuntu-latest
-    if: ${{ hashFiles('Cargo.toml') != '' }}
-    steps:
-      - name: Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
-        with:
-          toolchain: ${{ github.event.inputs.rust_version }}
-          components: clippy, rustfmt
-      - name: Cache Rust
-        uses: Swatinem/rust-cache@v2
-      - name: Cargo fmt
-        uses: actions-rust-lang/rustfmt@v1
-      - name: Cargo clippy
-        uses: giraffate/clippy-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Test Rust
-        run: cargo test
-      - name: Build Rust
-        run: cargo build --release
+runs:
+  using: composite
+  steps:
+    - name: Setup Rust
+      uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: ${{ github.event.inputs.rust_version }}
+        components: clippy, rustfmt
+    - name: Cache Rust
+      uses: Swatinem/rust-cache@v2
+    - name: Cargo fmt
+      uses: actions-rust-lang/rustfmt@v1
+    - name: Cargo clippy
+      uses: giraffate/clippy-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Test Rust
+      run: cargo test
+    - name: Build Rust
+      run: cargo build --release
