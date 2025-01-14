@@ -39,5 +39,5 @@ runs:
         rust_version: ${{ inputs.rust_version }}
 
     - name: 'C/CPP'
-      if: ${{ hashFiles('*.c') != '' }} || ${{ hashFiles('Makefile') != '' }}
+      if: ${{ hashFiles('Makefile') != '' || hashFiles('CMakeLists.txt') != '' }}
       uses: ./.github/check/actions/cpp
