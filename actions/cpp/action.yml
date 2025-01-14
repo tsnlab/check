@@ -6,6 +6,7 @@ runs:
   steps:
     - name: Install clang-format
       run: sudo apt install -qqy --no-install-recommends clang-format
+      shell: bash
     - name: Linters
       uses: wearerequired/lint-action@v2
       with:

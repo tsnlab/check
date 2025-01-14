@@ -23,5 +23,7 @@ runs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Test Rust
       run: cargo test
+      shell: bash
     - name: Build Rust
       run: cargo build --release
+      shell: bash
