@@ -40,6 +40,7 @@ runs:
       if: ${{ hashFiles('Cargo.toml') != '' }}
       uses: ./.github/check/actions/rust
       with:
+        github_token: ${{ inputs.github_token }}
         rust_version: ${{ inputs.rust_version }}
 
     - name: 'C/CPP'
