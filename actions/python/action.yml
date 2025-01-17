@@ -18,6 +18,7 @@ runs:
       shell: bash
     - name: Install dependencies
       run: pip install .
+      shell: bash
     - name: flake8, mypy
       uses: wearerequired/lint-action@v2
       with:
