@@ -5,12 +5,18 @@ inputs:
   github_token:
     description: 'GITHUB_TOKEN secret'
     required: true
+  shellcheck_ignore_paths:
+    description: 'Paths to ignore for shellcheck'
+    required: false
+    default: ''
 
 runs:
   using: composite
   steps:
     - name: Shellcheck
       uses: ludeeus/action-shellcheck@master
+      with:
+        ignore_paths: ${{ inputs.shellcheck_ignore_paths }}
     - name: Final newline
       uses: Logerfo/newline-action@0.0.4
       with:

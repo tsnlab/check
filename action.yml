@@ -11,6 +11,9 @@ inputs:
   github_token:
     description: 'GITHUB_TOKEN secret'
     required: true
+  shellcheck_ignore_paths:
+    description: 'Paths to ignore in shellcheck'
+    default: ''
 
 runs:
   using: 'composite'
@@ -25,6 +28,7 @@ runs:
       uses: ./.github/check/actions/basic
       with:
         github_token: ${{ inputs.github_token }}
+        shellcheck_ignore_paths: ${{ inputs.shellcheck_ignore_paths }}
 
     - name: 'Python'
       if: ${{ hashFiles('pyproject.toml') != '' }}
