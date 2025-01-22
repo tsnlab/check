@@ -1,13 +1,19 @@
 name: 'C/CPP'
 description: 'Lint C/CPP files'
 
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN secret'
+    required: true
+
 runs:
   using: composite
   steps:
-    - name: Install clang-format
-      run: sudo apt install -qqy --no-install-recommends clang-format
-      shell: bash
-    - name: Linters
-      uses: wearerequired/lint-action@v2
+    - name: Run clang-format, clang-tidy
+      uses: cpp-linter/cpp-linter-action@v2
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
-        clang_format: true
+        style: 'file'
+        tidy-checks: 'readability-*,bugprone-*,misc-*,performance-*,modernize-*'
+        thread-comments: ${{ github.event_name == 'pull_request' && 'update' }}
