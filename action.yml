@@ -46,3 +46,5 @@ runs:
     - name: 'C/CPP'
       if: ${{ hashFiles('Makefile') != '' || hashFiles('CMakeLists.txt') != '' }}
       uses: ./.github/check/actions/cpp
+      with:
+        github_token: ${{ inputs.github_token }}
