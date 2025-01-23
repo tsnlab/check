@@ -21,3 +21,4 @@ runs:
     - name: Fail if clang-format, clang-tidy found issues
       if: steps.cpp-linter.outputs.checks-failed > 0
       run: exit 1
+      shell: bash
