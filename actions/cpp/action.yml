@@ -10,6 +10,7 @@ runs:
   using: composite
   steps:
     - name: Run clang-format, clang-tidy
+      id: cpp-linter
       uses: cpp-linter/cpp-linter-action@v2
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
@@ -17,3 +18,6 @@ runs:
         style: 'file'
         tidy-checks: 'readability-*,bugprone-*,misc-*,performance-*,modernize-*'
         thread-comments: ${{ github.event_name == 'pull_request' && 'update' }}
+    - name: Fail if clang-format, clang-tidy found issues
+      if: steps.cpp-linter.outputs.checks-failed > 0
+      run: exit 1
