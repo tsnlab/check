@@ -34,6 +34,7 @@ runs:
       if: ${{ hashFiles('pyproject.toml') != '' }}
       uses: ./.github/check/actions/python
       with:
+        github_token: ${{ inputs.github_token }}
         python_version: ${{ inputs.python_version }}
 
     - name: 'Rust'

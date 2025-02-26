@@ -2,6 +2,9 @@ name: Python
 description: 'Lint Python files'
 
 inputs:
+  github_token:
+    description: 'GITHUB_TOKEN secret'
+    required: true
   python_version:
     description: 'Python version'
     default: '3.12'
@@ -22,6 +25,7 @@ runs:
     - name: flake8, mypy
       uses: wearerequired/lint-action@v2
       with:
+        github_token: ${{ inputs.github_token }}
         flake8: true
         mypy: true
         mypy_args: --disable-error-code=import-untyped --check-untyped-defs
