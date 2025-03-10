@@ -16,6 +16,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
         style: 'file'
+        version: '19'
         tidy-checks: 'readability-*,bugprone-*,misc-*,performance-*,modernize-*'
         thread-comments: ${{ github.event_name == 'pull_request' && 'update' }}
     - name: Fail if clang-format, clang-tidy found issues
