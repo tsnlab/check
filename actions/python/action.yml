@@ -16,11 +16,15 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ github.event.inputs.python_version }}
+        cache: poetry
     - name: Install Flake8, pyright, mypy
       run: pip install flake8 flake8-import-order flake8-builtins mypy
       shell: bash
     - name: Install dependencies
       run: pip install . || (pip install poetry && poetry install --no-root)
+      shell: bash
+    - name: Set poetry PATH
+      run: echo "$(poetry env info --path)/bin" >> $GITHUB_PATH
       shell: bash
     - name: flake8, mypy
       uses: wearerequired/lint-action@v2
