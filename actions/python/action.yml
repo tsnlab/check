@@ -17,7 +17,7 @@ runs:
       with:
         python-version: ${{ github.event.inputs.python_version }}
     - name: Install Flake8, pyright, mypy
-      run: pip install flake8 flake8-import-order flake8-builtins pyright mypy
+      run: pip install flake8 flake8-import-order flake8-builtins mypy
       shell: bash
     - name: Install dependencies
       run: pip install . || (pip install poetry && poetry install --no-root)
